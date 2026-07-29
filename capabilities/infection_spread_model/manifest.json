@@ -1,0 +1,42 @@
+{
+  "name": "infection_spread_model",
+  "version": "1.0.0",
+  "description": "Model how infections spread between persons at different locations.",
+  "exports": [
+    {
+      "function": "infection_spread_model",
+      "args": {},
+      "returns": "result dict",
+      "description": ""
+    }
+  ],
+  "requires_python": ">=3.10",
+  "requires_packages": [
+    "numpy",
+    "ortools",
+    "pytest"
+  ],
+  "egress_hosts": [],
+  "needs_consent": {},
+  "needs_secrets": [],
+  "depends_on_capabilities": [],
+  "tests_required": true,
+  "tests_provenance": "smoke_only",
+  "status": "active",
+  "created_by": "capability_builder",
+  "created_at": 1785092958.4502687,
+  "model_used": "qwen2.5:7b",
+  "tokens_consumed": 1760,
+  "reputation": 1.0,
+  "manifest_version": 1,
+  "is_builtin": false,
+  "supersedes": null,
+  "success_count": 0,
+  "fail_count": 0,
+  "last_used_at": null,
+  "code_hash": "",
+  "allowed_in_stages": [],
+  "consecutive_empty_calls": 0,
+  "validation_status": "unverified",
+  "last_validation_at": null
+}

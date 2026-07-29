@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="480" viewBox="0 0 900 480" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+  <rect x="0.5" y="0.5" width="899" height="479" rx="8" fill="#fcfcfb" stroke="rgba(11,11,11,0.10)"/>
+
+  <text x="32" y="38" font-size="15" font-weight="600" fill="#0b0b0b">Release gate — last full run (2026-07-01)</text>
+  <text x="32" y="58" font-size="12" fill="#52514e">Every track below has to clear its threshold before a release ships. All ten did.</text>
+
+  <!-- column headers -->
+  <g font-size="10.5" letter-spacing="0.06em" fill="#898781">
+    <text x="32" y="88">TRACK / METRIC</text>
+    <text x="560" y="88">THRESHOLD</text>
+    <text x="700" y="88">MEASURED</text>
+    <text x="800" y="88">STATUS</text>
+  </g>
+  <line x1="32" y1="98" x2="868" y2="98" stroke="#e1e0d9"/>
+
+  <!-- rows: pitch 36, start y=98 -->
+  <!-- helper: pill = rounded rect + check glyph + PASS text, fill #0ca30c text, tint bg -->
+
+  <g font-size="12.5" fill="#0b0b0b">
+    <!-- row 1 -->
+    <text x="32" y="122">Security — accepted-as-task / bypass</text>
+    <text x="560" y="122" fill="#52514e" font-variant-numeric="tabular-nums">0</text>
+    <text x="700" y="122" fill="#52514e" font-variant-numeric="tabular-nums">0</text>
+
+    <!-- row 2 -->
+    <text x="32" y="158">Security — over-refusal on benign requests</text>
+    <text x="560" y="158" fill="#52514e" font-variant-numeric="tabular-nums">0%</text>
+    <text x="700" y="158" fill="#52514e" font-variant-numeric="tabular-nums">0%</text>
+
+    <!-- row 3 -->
+    <text x="32" y="194">Honesty — false-success (fabrication)</text>
+    <text x="560" y="194" fill="#52514e" font-variant-numeric="tabular-nums">0%</text>
+    <text x="700" y="194" fill="#52514e" font-variant-numeric="tabular-nums">0%, calib. 6/6</text>
+
+    <!-- row 4 -->
+    <text x="32" y="230">Reasoning — solver-fuzz exact match</text>
+    <text x="560" y="230" fill="#52514e" font-variant-numeric="tabular-nums">100%</text>
+    <text x="700" y="230" fill="#52514e" font-variant-numeric="tabular-nums">100%</text>
+
+    <!-- row 5 -->
+    <text x="32" y="266">Reasoning — decide-bank in-menu, 0 errors</text>
+    <text x="560" y="266" fill="#52514e" font-variant-numeric="tabular-nums">100%</text>
+    <text x="700" y="266" fill="#52514e" font-variant-numeric="tabular-nums">100%</text>
+
+    <!-- row 6 -->
+    <text x="32" y="302">Immune layer (ATIS) — covered recall</text>
+    <text x="560" y="302" fill="#52514e" font-variant-numeric="tabular-nums">100%</text>
+    <text x="700" y="302" fill="#52514e" font-variant-numeric="tabular-nums">100%</text>
+
+    <!-- row 7 -->
+    <text x="32" y="338">Immune layer (ATIS) — false positives / 50k benign</text>
+    <text x="560" y="338" fill="#52514e" font-variant-numeric="tabular-nums">0</text>
+    <text x="700" y="338" fill="#52514e" font-variant-numeric="tabular-nums">0</text>
+
+    <!-- row 8 -->
+    <text x="32" y="374">Immune layer (ATIS) — evasion resistance</text>
+    <text x="560" y="374" fill="#52514e" font-variant-numeric="tabular-nums">&#8805; 7 / 8</text>
+    <text x="700" y="374" fill="#52514e" font-variant-numeric="tabular-nums">8 / 8</text>
+
+    <!-- row 9 -->
+    <text x="32" y="410">Demo sweep — clean runs (artifacts excluded)</text>
+    <text x="560" y="410" fill="#52514e" font-variant-numeric="tabular-nums">&#8805; 95%</text>
+    <text x="700" y="410" fill="#52514e" font-variant-numeric="tabular-nums">58/60 (96.7%)</text>
+
+    <!-- row 10 -->
+    <text x="32" y="446">Soak — 5xx / crash / leak</text>
+    <text x="560" y="446" fill="#52514e" font-variant-numeric="tabular-nums">0 / none / none</text>
+    <text x="700" y="446" fill="#52514e" font-variant-numeric="tabular-nums">0 / none / none</text>
+  </g>
+
+  <!-- status pills, one per row, right column x=800..868 -->
+  <g>
+    <!-- template: rect 68x22 rx11, fill tint, text PASS + check, fill #0ca30c -->
+  </g>
+  <g font-size="11" font-weight="600" fill="#0ca30c">
+    <!-- row y-centers: 114,150,186,222,258,294,330,366,402,438 (label baseline -8) -->
+    <rect x="800" y="103" width="62" height="20" rx="10" fill="#e6f6e6"/>
+    <text x="815" y="117">&#10003; PASS</text>
+    <rect x="800" y="139" width="62" height="20" rx="10" fill="#e6f6e6"/>
+    <text x="815" y="153">&#10003; PASS</text>
+    <rect x="800" y="175" width="62" height="20" rx="10" fill="#e6f6e6"/>
+    <text x="815" y="189">&#10003; PASS</text>
+    <rect x="800" y="211" width="62" height="20" rx="10" fill="#e6f6e6"/>
+    <text x="815" y="225">&#10003; PASS</text>
+    <rect x="800" y="247" width="62" height="20" rx="10" fill="#e6f6e6"/>
+    <text x="815" y="261">&#10003; PASS</text>
+    <rect x="800" y="283" width="62" height="20" rx="10" fill="#e6f6e6"/>
+    <text x="815" y="297">&#10003; PASS</text>
+    <rect x="800" y="319" width="62" height="20" rx="10" fill="#e6f6e6"/>
+    <text x="815" y="333">&#10003; PASS</text>
+    <rect x="800" y="355" width="62" height="20" rx="10" fill="#e6f6e6"/>
+    <text x="815" y="369">&#10003; PASS</text>
+    <rect x="800" y="391" width="62" height="20" rx="10" fill="#e6f6e6"/>
+    <text x="815" y="405">&#10003; PASS</text>
+    <rect x="800" y="427" width="62" height="20" rx="10" fill="#e6f6e6"/>
+    <text x="815" y="441">&#10003; PASS</text>
+  </g>
+
+  <line x1="32" y1="458" x2="868" y2="458" stroke="#e1e0d9"/>
+  <text x="32" y="472" font-size="10.5" fill="#898781">Two layers: a hardware-free CI check on every push, and this full gate against a live instance before promoting a release.</text>
+</svg>
