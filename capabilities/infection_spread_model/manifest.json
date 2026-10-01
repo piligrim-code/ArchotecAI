@@ -1,7 +1,7 @@
 {
   "name": "infection_spread_model",
-  "version": "1.0.0",
-  "description": "Model how infections spread between persons at different locations.",
+  "version": "1.0.1",
+  "description": "Bounded toy contact-weight estimator; not an epidemiological prediction.",
   "exports": [
     {
       "function": "infection_spread_model",
@@ -12,7 +12,6 @@
   ],
   "requires_python": ">=3.10",
   "requires_packages": [
-    "numpy",
     "ortools",
     "pytest"
   ],
@@ -21,7 +20,8 @@
   "needs_secrets": [],
   "depends_on_capabilities": [],
   "tests_required": true,
-  "tests_provenance": "smoke_only",
+  "tests_provenance": "public_behavioral_regressions",
+  "public_revision": "Human-reviewed indexing, validation and solver-status correction on 2026-10-01; no longer unedited generated output.",
   "status": "active",
   "created_by": "capability_builder",
   "created_at": 1785092958.4502687,

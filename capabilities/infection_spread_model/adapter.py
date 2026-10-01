@@ -1,52 +1,37 @@
+from numbers import Integral
+
 from ortools.linear_solver import pywraplp
-import numpy as np
 
 def infection_spread_model(infections_at_locations):
-    # Define variables
+    """Return a toy contact estimate, not an epidemiological prediction.
+
+    The heuristic weight for an unordered pair is min(counts) // 5.
+    The original unconstrained positive-weight objective selects every such
+    pair. Retaining the solver here demonstrates the public adapter contract;
+    it does not imply a calibrated disease model or meaningful optimization.
+    """
+    counts = list(infections_at_locations)
+    if len(counts) > 128:
+        raise ValueError('The demo supports at most 128 locations')
+    if any(isinstance(n, bool) or not isinstance(n, Integral) or not 0 <= n <= 10**9 for n in counts):
+        raise ValueError('Counts must be integers between 0 and 1000000000')
+    weights = {
+        (i, j): min(int(counts[i]), int(counts[j])) // 5
+        for i in range(len(counts)) for j in range(i + 1, len(counts))
+        if min(counts[i], counts[j]) >= 5
+    }
+    if not weights:
+        return {'contacts': {}, 'total_contacts': 0}
     solver = pywraplp.Solver.CreateSolver('SCIP')
     if not solver:
-        raise Exception('Failed to create the solver.')
-
-    num_locations = len(infections_at_locations)
-    contacts_between_locations = np.zeros((num_locations, num_locations), dtype=int)
-
-    for i in range(num_locations):
-        for j in range(i + 1, num_locations):
-            # Assuming a simple model where contact between locations is proportional to infections
-            contacts_between_locations[i][j] = max(0, min(infections_at_locations[i], infections_at_locations[j]) // 5)
-            contacts_between_locations[j][i] = contacts_between_locations[i][j]
-
-    contacts_flattened = contacts_between_locations.flatten().tolist()
-    
-    # Decision variables: whether to activate contact model between locations
-    binary_contacts = {}
-    for i in range(num_locations * (num_locations - 1) // 2):
-        binary_contacts[f"contact_{i}"] = solver.BoolVar(f"contact_{i}")
-
-    # Objective function: maximize total contacts while considering constraints
+        raise RuntimeError('SCIP solver is unavailable')
+    solver.SetTimeLimit(2000)
+    variables = {pair: solver.BoolVar(f'contact_{pair[0]}_{pair[1]}') for pair in weights}
     objective = solver.Objective()
-    
-    for i in range(len(contacts_flattened)):
-        if contacts_flattened[i] > 0:
-            objective.SetCoefficient(binary_contacts[f"contact_{i}"], contacts_flattened[i])
-
-    # Constraint: ensure the model does not double-count any contacts
-    constraints = [solver.Constraint(-solver.infinity(), solver.infinity()) for _ in range(num_locations)]
-    
-    for i in range(num_locations * (num_locations - 1) // 2):
-        row, col = divmod(i, num_locations - 1)
-        if contacts_between_locations[row][col] > 0:
-            constraints[row].SetCoefficient(binary_contacts[f"contact_{i}"], -1)
-
-    # Solve the model
-    solver.EnableOutput()
-    solver.Solve()
-
-    result = {}
-    for i in range(len(contacts_flattened)):
-        contact_var_name = f"contact_{i}"
-        if binary_contacts[contact_var_name].solution_value() == 1:
-            row, col = divmod(i, num_locations - 1)
-            result[(row, col)] = contacts_between_locations[row][col]
-
-    return {"contacts": result, "total_contacts": sum(contacts for _, contacts in result.items())}
+    for pair, weight in weights.items():
+        objective.SetCoefficient(variables[pair], weight)
+    objective.SetMaximization()
+    if solver.Solve() != pywraplp.Solver.OPTIMAL:
+        raise RuntimeError('The demo requires an optimal solver result')
+    contacts = {pair: weight for pair, weight in weights.items() if variables[pair].solution_value() > 0.5}
+    return {'contacts': contacts, 'total_contacts': sum(contacts.values())}
