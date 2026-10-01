@@ -1,3 +1,2 @@
-numpy
-ortools
-pytest
+ortools>=9.10,<10
+pytest>=8,<10

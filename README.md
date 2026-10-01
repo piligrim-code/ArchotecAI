@@ -16,8 +16,31 @@ code that's real but doesn't pretend to be more than it is.
 | `docs/COMPARISON.md` | A self-critical architectural comparison against Hermes Agent and OpenClaw — where those systems win, where this one does, and an explicit gap list. |
 | `docs/CASE_STUDIES.md` | Five worked problems with a checkable, deterministic correct answer each — not a transcript to take on faith. |
 | `docs/BENCHMARKS.md` | How releases are actually gated: a 100-task adversarial stress run, a 10-track threshold gate, and the one real safety gap that run found and closed in the same session. |
-| `capabilities/infection_spread_model/` | Unedited output of the kernel's own capability builder — a real OR-Tools capability it wrote, tested, and registered on its own. |
+| `capabilities/infection_spread_model/` | Generated-origin OR-Tools sample, manually corrected after the public audit; includes a synthetic demo and behavioral tests. |
 | `generated/` | A small gallery of more such output — the organs (capabilities) COGOS produced while attempting two other blueprints. See below. |
+
+## Runnable Public Sample
+
+From the repository root, in a Python 3.12 virtual environment:
+
+```sh
+python -m pip install -r capabilities/infection_spread_model/requirements.txt
+python -m pytest capabilities/infection_spread_model -q
+python -m capabilities.infection_spread_model.demo
+```
+
+The demo uses `[10, 20, 5]` and returns three unordered pairs with weights
+`2, 1, 1`, total `4`. It requires no account, secrets, datasets or model server.
+Counts must be integers from 0 to 1,000,000,000; the demo accepts at most
+128 locations and limits solver time to two seconds.
+
+This is a toy contact heuristic (`min(count_i, count_j) // 5`), not a calibrated
+epidemiological model. The positive-weight unconstrained objective simply
+selects every positive pair. The original generated sample had mismatched
+matrix/variable indices, and its import-only smoke test did not catch the bug.
+The October 1, 2026 correction adds behavioral tests and explicit solver-status
+handling. It is **not unedited generated evidence** and does not validate the
+private kernel or the historical benchmark claims elsewhere in this repository.
 
 ## `generated/`: raw output, not a demo
 
